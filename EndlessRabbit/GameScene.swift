@@ -186,7 +186,6 @@ class GameScene: SCNScene, SCNPhysicsContactDelegate {
         } else {
             objectNode = CarrotNode()
         }
-
         objectNode.position = SCNVector3(x: lane, y: 0, z: cameraNode.position.z - 50)
         
         DispatchQueue.main.async {

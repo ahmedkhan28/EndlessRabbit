@@ -1,6 +1,7 @@
 {
   "colors" : [
     {
+<<<<<<< HEAD
       "color" : {
         "color-space" : "srgb",
         "components" : {
@@ -28,6 +29,8 @@
           "red" : "1.000"
         }
       },
+=======
+>>>>>>> 0468b9146ec170eff8803b09285cb8cc274b93f1
       "idiom" : "universal"
     }
   ],

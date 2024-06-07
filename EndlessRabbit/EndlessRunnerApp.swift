@@ -70,4 +70,3 @@ struct LaunchScreenView: View {
         }
     }
 }
-

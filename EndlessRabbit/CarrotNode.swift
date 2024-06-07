@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 
 //  CarrotNode.swift
 //  EndlessRabbit
@@ -10,6 +11,21 @@
 //  The CarrotNode is set up with a static physics body using a bounding box shape. The physics body is assigneda specific category bit mask to identify it as a carrot collectible during collision detection.
 
 //  If the "Carrot.scn" file is not found or fails to load, an error message is printed to the console.
+=======
+//
+//  CarrotNode.swift
+//  EndlessRabbit
+//
+//  Created by Ahmed Khan on 04/06/2024.
+//
+
+//
+//  CarrotNode.swift
+//  EndlessRabbit
+//
+//  Created by Ahmed Khan on 04/06/2024.
+//
+>>>>>>> 0468b9146ec170eff8803b09285cb8cc274b93f1
 
 import SceneKit
 
@@ -26,7 +42,11 @@ class CarrotNode: SCNNode {
                 addChildNode(childNode)
             }
             
+<<<<<<< HEAD
            
+=======
+            // Add physics body to the carrot
+>>>>>>> 0468b9146ec170eff8803b09285cb8cc274b93f1
             let shape = SCNPhysicsShape(node: self, options: [SCNPhysicsShape.Option.type: SCNPhysicsShape.ShapeType.boundingBox])
             physicsBody = SCNPhysicsBody(type: .static, shape: shape)
             physicsBody?.categoryBitMask = CarrotNode.bitMask
