@@ -14,7 +14,6 @@
 		3A2B78F62C0EDEA900BB5FDB /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2B78F52C0EDEA900BB5FDB /* ContentView.swift */; };
 		3A2B78F82C0EDECF00BB5FDB /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2B78F72C0EDECF00BB5FDB /* GameScene.swift */; };
 		3A2B78FA2C0EDF0900BB5FDB /* TreeNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2B78F92C0EDF0900BB5FDB /* TreeNode.swift */; };
-		3AB66D552C12CDC100AA4CF8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3AB66D542C12CDC100AA4CF8 /* Assets.xcassets */; };
 		3ACCDCFA2C0F39BA00335B03 /* CarrotNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ACCDCF92C0F39BA00335B03 /* CarrotNode.swift */; };
 /* End PBXBuildFile section */
 
@@ -27,7 +26,6 @@
 		3A2B78F52C0EDEA900BB5FDB /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		3A2B78F72C0EDECF00BB5FDB /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
 		3A2B78F92C0EDF0900BB5FDB /* TreeNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeNode.swift; sourceTree = "<group>"; };
-		3AB66D542C12CDC100AA4CF8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = ../Assets.xcassets; sourceTree = "<group>"; };
 		3ACCDCF82C0F08B700335B03 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		3ACCDCF92C0F39BA00335B03 /* CarrotNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarrotNode.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -72,7 +70,6 @@
 				3ACCDCF92C0F39BA00335B03 /* CarrotNode.swift */,
 				3A2B78F72C0EDECF00BB5FDB /* GameScene.swift */,
 				3A2B78D62C0EDABC00BB5FDB /* art.scnassets */,
-				3AB66D542C12CDC100AA4CF8 /* Assets.xcassets */,
 			);
 			path = EndlessRabbit;
 			sourceTree = "<group>";
@@ -136,7 +133,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				3A2B78D72C0EDABC00BB5FDB /* art.scnassets in Resources */,
-				3AB66D552C12CDC100AA4CF8 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
