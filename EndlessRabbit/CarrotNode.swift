@@ -1,16 +1,27 @@
-//
-//  CarrotNode.swift
-//  EndlessRabbit
-//
-//  Created by Ahmed Khan on 04/06/2024.
-//
 
+
+//  CarrotNode.swift
+//  EndlessRabbit
+//  Created by Ahmed Khan on 04/06/2024.
+
+<<<<<<< HEAD
 //
 //  CarrotNode.swift
 //  EndlessRabbit
 //
 //  Created by Ahmed Khan on 04/06/2024.
 //
+=======
+//  The CarrotNode class represents a carrot collectible in the game. It is an SCNNode subclass that loads and sets up the carrot model from the "Carrot.scn" scene file.
+
+//  The carrot model is loaded from the "art.scnassets/Carrot.scn" file and added as child nodes to the CarrotNode. The shadows of the child nodes are disabled to optimize performance.
+
+//  The CarrotNode is set up with a static physics body using a bounding box shape. The physics body is assigneda specific category bit mask to identify it as a carrot collectible during collision detection.
+
+//  If the "Carrot.scn" file is not found or fails to load, an error message is printed to the console.
+
+
+>>>>>>> Final-Code-All-Changes-Made-Backup
 
 import SceneKit
 
@@ -27,7 +38,11 @@ class CarrotNode: SCNNode {
                 addChildNode(childNode)
             }
             
+
+           
+
             // Add physics body to the carrot
+
             let shape = SCNPhysicsShape(node: self, options: [SCNPhysicsShape.Option.type: SCNPhysicsShape.ShapeType.boundingBox])
             physicsBody = SCNPhysicsBody(type: .static, shape: shape)
             physicsBody?.categoryBitMask = CarrotNode.bitMask

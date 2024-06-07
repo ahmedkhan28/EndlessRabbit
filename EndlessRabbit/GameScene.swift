@@ -1,6 +1,30 @@
+<<<<<<< HEAD
+=======
+
+//  GameScene.swift
+//  EndlessRabbit
+//  Created by Ahmed Khan on 04/06/2024.
+
+//  This file contains the main game scene class, which is responsible for setting up and managing the game elements.
+//  It handles the game logic, including spawning obstacles (carrots and trees), detecting collisions, updating the score, and triggering game over events.
+
+//  The game scene is built using entirely using SceneKit and utilizes physics-based collision detection. It communicates with the game view controller using the GameOverDelegate protocol to notify when the game is over.
+
+//  The game scene sets up the camera, lighting, ground, and the player character (bunny). It also handles user input
+//  for controlling the bunny's movement between lanes.
+
+//  The scene continuously spawns obstacles (carrots and trees) and moves them towards the player. The player's objective
+//  is to collect carrots while avoiding collisions with trees. The score is incremented for each carrot collected and
+//  is bound to the game view controller for updating the user interface.
+
+//  The game scene also manages audio playback for sound effects, such as collecting carrots and the game over sound.
+
+//  When a collision with a tree occurs, the game scene triggers the game over event and notifies the game view controller
+//  to handle the game over state.
+>>>>>>> Final-Code-All-Changes-Made-Backup
 
 import SceneKit
-import QuartzCore
+import SwiftUI
 
 class GameScene: SCNScene, SCNPhysicsContactDelegate {
     
@@ -8,13 +32,23 @@ class GameScene: SCNScene, SCNPhysicsContactDelegate {
     var groundNode: SCNNode!
     var objectNode: SCNNode?
     var bunnyNode: SCNNode?
+<<<<<<< HEAD
     var lanes: [Float] = [-2, 0, 2] // Three lanes
     var currentLaneIndex = 1 // Initial lane index
+=======
+    var lanes: [Float] = [-1.7, 0, 1.7] //Three Lanes
+    var currentLaneIndex = 1
+    
+    var score = 0
+    var scoreBinding: Binding<Int>?
+    
+    weak var gameOverDelegate: GameOverDelegate?
+>>>>>>> Final-Code-All-Changes-Made-Backup
     
     override init() {
         super.init()
         
-        // Set up the scene
+        //All scenes
         setupCamera()
         setupLight()
         setupGround()
@@ -57,15 +91,15 @@ class GameScene: SCNScene, SCNPhysicsContactDelegate {
     func setupGround() {
         groundNode = SCNNode()
         let groundGeometry = SCNFloor()
-        groundGeometry.firstMaterial?.diffuse.contents = UIImage(named: "art.scnassets/grass.png")
-       
-        // Set reflectivity to zero
+        groundGeometry.firstMaterial?.diffuse.contents = UIImage(named: "art.scnassets/grassHd.png")
+        
+      
         groundGeometry.reflectivity = 0.0
         
         groundNode.geometry = groundGeometry
         groundNode.position = SCNVector3(x: 0, y: -0.1, z: 0)
         
-        // Add physics body to the ground
+     
         let groundShape = SCNPhysicsShape(geometry: groundGeometry, options: nil)
         let groundBody = SCNPhysicsBody(type: .static, shape: groundShape)
         groundNode.physicsBody = groundBody
@@ -83,17 +117,17 @@ class GameScene: SCNScene, SCNPhysicsContactDelegate {
         bunnyNode = bunnyScene.rootNode.childNodes.first!.clone()
         bunnyNode!.position = SCNVector3(x: lanes[currentLaneIndex], y: 0, z: 0)
         
-        // Remove shadow
+ 
         bunnyNode!.enumerateChildNodes { (node, _) in
             node.castsShadow = false
         }
         
-        // Add physics body to the bunny
+        
         let shape = SCNPhysicsShape(node: bunnyNode!, options: [SCNPhysicsShape.Option.type: SCNPhysicsShape.ShapeType.boundingBox])
         let physicsBody = SCNPhysicsBody(type: .dynamic, shape: shape)
         physicsBody.isAffectedByGravity = false
         physicsBody.categoryBitMask = 1
-        physicsBody.contactTestBitMask = 2 | 4 // Detect collisions with carrots (2) and trees (4)
+        physicsBody.contactTestBitMask = 2 | 4
         bunnyNode!.physicsBody = physicsBody
         
         rootNode.addChildNode(bunnyNode!)
@@ -101,11 +135,11 @@ class GameScene: SCNScene, SCNPhysicsContactDelegate {
     }
     
     func setupCollisions() {
-        // Set up collision bit masks
+       
         CarrotNode.bitMask = 2
         TreeNode.bitMask = 4
         
-        // Set physics contact delegate
+      
         physicsWorld.contactDelegate = self
     }
     
@@ -118,6 +152,8 @@ class GameScene: SCNScene, SCNPhysicsContactDelegate {
             let carrotNode = (nodeA.physicsBody?.categoryBitMask == CarrotNode.bitMask) ? nodeA : nodeB
             carrotNode.removeFromParentNode()
             playChimpupSound()
+            incrementScore()
+            
         } else if nodeA.physicsBody?.categoryBitMask == TreeNode.bitMask || nodeB.physicsBody?.categoryBitMask == TreeNode.bitMask {
             // Bunny collided with a tree
             gameOver()
@@ -136,6 +172,7 @@ class GameScene: SCNScene, SCNPhysicsContactDelegate {
         rootNode.runAction(chimpupAction)
     }
     
+<<<<<<< HEAD
     func gameOver() {
         // Stop camera movement
         cameraNode.removeAllActions()
@@ -152,8 +189,19 @@ class GameScene: SCNScene, SCNPhysicsContactDelegate {
         
         // Reapply the grass texture to ensure it remains
         groundNode.geometry?.firstMaterial?.diffuse.contents = UIImage(named: "art.scnassets/grass.png")
+=======
+    func incrementScore() {
+        score += 1
+        scoreBinding?.wrappedValue = score
+>>>>>>> Final-Code-All-Changes-Made-Backup
     }
+  
     
+    func resetScore() {
+        score = 0
+        scoreBinding?.wrappedValue = score
+    }
+
     func spawnObject() {
         let lane = lanes[Int.random(in: 0..<lanes.count)]
         let objectType = Bool.random() ? "tree" : "carrot"
@@ -165,7 +213,6 @@ class GameScene: SCNScene, SCNPhysicsContactDelegate {
         } else {
             objectNode = CarrotNode()
         }
-        
         objectNode.position = SCNVector3(x: lane, y: 0, z: cameraNode.position.z - 50)
         
         DispatchQueue.main.async {
@@ -188,7 +235,7 @@ class GameScene: SCNScene, SCNPhysicsContactDelegate {
             spawnObject()
         }
         
-        // Keep the bunny in the scene by moving it along with the camera
+       
         bunnyNode?.position.z = cameraNode.position.z - 9
     }
     
@@ -219,4 +266,29 @@ class GameScene: SCNScene, SCNPhysicsContactDelegate {
         let action = SCNAction.moveBy(x: CGFloat(lanes[index] - bunnyNode!.position.x), y: 0, z: 0, duration: 0.2)
         bunnyNode!.runAction(action)
     }
+<<<<<<< HEAD
+=======
+    
+    func playRabbitFallsSound() {
+        guard let rabbitFallsSound = SCNAudioSource(fileNamed: "art.scnassets/rabbitFalls.wav") else {
+            print("Failed to load rabbitFalls.wav")
+            return
+        }
+        rabbitFallsSound.load()
+        rabbitFallsSound.volume = 1.0
+        rabbitFallsSound.isPositional = false
+        let rabbitFallsAction = SCNAction.playAudio(rabbitFallsSound, waitForCompletion: false)
+        rootNode.runAction(rabbitFallsAction)
+    }
+    
+    func gameOver() {
+    
+        cameraNode?.removeAllActions()
+        
+        
+        playRabbitFallsSound()
+        
+        gameOverDelegate?.gameOverDidOccur()
+    }
+>>>>>>> Final-Code-All-Changes-Made-Backup
 }
