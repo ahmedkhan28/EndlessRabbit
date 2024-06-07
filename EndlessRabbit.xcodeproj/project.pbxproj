@@ -3,18 +3,18 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 60;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		3A2B78D52C0EDABC00BB5FDB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2B78D42C0EDABC00BB5FDB /* AppDelegate.swift */; };
 		3A2B78D72C0EDABC00BB5FDB /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = 3A2B78D62C0EDABC00BB5FDB /* art.scnassets */; };
 		3A2B78D92C0EDABC00BB5FDB /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2B78D82C0EDABC00BB5FDB /* GameViewController.swift */; };
-		3A2B78DE2C0EDABE00BB5FDB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3A2B78DD2C0EDABE00BB5FDB /* Assets.xcassets */; };
 		3A2B78F42C0EDE9600BB5FDB /* EndlessRunnerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2B78F32C0EDE9600BB5FDB /* EndlessRunnerApp.swift */; };
 		3A2B78F62C0EDEA900BB5FDB /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2B78F52C0EDEA900BB5FDB /* ContentView.swift */; };
 		3A2B78F82C0EDECF00BB5FDB /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2B78F72C0EDECF00BB5FDB /* GameScene.swift */; };
 		3A2B78FA2C0EDF0900BB5FDB /* TreeNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2B78F92C0EDF0900BB5FDB /* TreeNode.swift */; };
+		3AB66D552C12CDC100AA4CF8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3AB66D542C12CDC100AA4CF8 /* Assets.xcassets */; };
 		3ACCDCFA2C0F39BA00335B03 /* CarrotNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ACCDCF92C0F39BA00335B03 /* CarrotNode.swift */; };
 /* End PBXBuildFile section */
 
@@ -23,11 +23,11 @@
 		3A2B78D42C0EDABC00BB5FDB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3A2B78D62C0EDABC00BB5FDB /* art.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = art.scnassets; sourceTree = "<group>"; };
 		3A2B78D82C0EDABC00BB5FDB /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
-		3A2B78DD2C0EDABE00BB5FDB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3A2B78F32C0EDE9600BB5FDB /* EndlessRunnerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndlessRunnerApp.swift; sourceTree = "<group>"; };
 		3A2B78F52C0EDEA900BB5FDB /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		3A2B78F72C0EDECF00BB5FDB /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
 		3A2B78F92C0EDF0900BB5FDB /* TreeNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeNode.swift; sourceTree = "<group>"; };
+		3AB66D542C12CDC100AA4CF8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = ../Assets.xcassets; sourceTree = "<group>"; };
 		3ACCDCF82C0F08B700335B03 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		3ACCDCF92C0F39BA00335B03 /* CarrotNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarrotNode.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -50,6 +50,7 @@
 				3A2B78D22C0EDABC00BB5FDB /* Products */,
 			);
 			sourceTree = "<group>";
+			tabWidth = 4;
 		};
 		3A2B78D22C0EDABC00BB5FDB /* Products */ = {
 			isa = PBXGroup;
@@ -71,7 +72,7 @@
 				3ACCDCF92C0F39BA00335B03 /* CarrotNode.swift */,
 				3A2B78F72C0EDECF00BB5FDB /* GameScene.swift */,
 				3A2B78D62C0EDABC00BB5FDB /* art.scnassets */,
-				3A2B78DD2C0EDABE00BB5FDB /* Assets.xcassets */,
+				3AB66D542C12CDC100AA4CF8 /* Assets.xcassets */,
 			);
 			path = EndlessRabbit;
 			sourceTree = "<group>";
@@ -112,7 +113,7 @@
 				};
 			};
 			buildConfigurationList = 3A2B78CC2C0EDABC00BB5FDB /* Build configuration list for PBXProject "EndlessRabbit" */;
-			compatibilityVersion = "Xcode 14.0";
+			compatibilityVersion = "Xcode 15.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -135,7 +136,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3A2B78D72C0EDABC00BB5FDB /* art.scnassets in Resources */,
-				3A2B78DE2C0EDABE00BB5FDB /* Assets.xcassets in Resources */,
+				3AB66D552C12CDC100AA4CF8 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -211,6 +212,11 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_KEY_NSMainNibFile = "";
+				INFOPLIST_KEY_NSMainStoryboardFile = "";
+				INFOPLIST_KEY_UIMainStoryboardFile = "";
+				INFOPLIST_KEY_UIRequiresFullScreen = YES;
+				INFOPLIST_KEY_UIStatusBarHidden = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
@@ -268,6 +274,11 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_KEY_NSMainNibFile = "";
+				INFOPLIST_KEY_NSMainStoryboardFile = "";
+				INFOPLIST_KEY_UIMainStoryboardFile = "";
+				INFOPLIST_KEY_UIRequiresFullScreen = YES;
+				INFOPLIST_KEY_UIStatusBarHidden = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
@@ -290,10 +301,15 @@
 				INFOPLIST_FILE = EndlessRabbit/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "";
 				INFOPLIST_KEY_LSApplicationCategoryType = "";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_NSMainNibFile = "";
+				INFOPLIST_KEY_NSMainStoryboardFile = "";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UIMainStoryboardFile = "";
 				INFOPLIST_KEY_UIRequiresFullScreen = YES;
 				INFOPLIST_KEY_UIStatusBarHidden = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = UIInterfaceOrientationPortrait;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -320,10 +336,15 @@
 				INFOPLIST_FILE = EndlessRabbit/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "";
 				INFOPLIST_KEY_LSApplicationCategoryType = "";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_NSMainNibFile = "";
+				INFOPLIST_KEY_NSMainStoryboardFile = "";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UIMainStoryboardFile = "";
 				INFOPLIST_KEY_UIRequiresFullScreen = YES;
 				INFOPLIST_KEY_UIStatusBarHidden = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = UIInterfaceOrientationPortrait;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
