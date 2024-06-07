@@ -105,27 +105,33 @@ class GameScene: SCNScene, SCNPhysicsContactDelegate {
             print("Failed to load rabbit.scn")
             return
         }
-        
+
         bunnyNode = bunnyScene.rootNode.childNodes.first!.clone()
         bunnyNode!.position = SCNVector3(x: lanes[currentLaneIndex], y: 0, z: 0)
-        
- 
+
+        // Set the diffuse contents to Bunny.png
+        if let bunnyGeometry = bunnyNode!.geometry {
+            let material = SCNMaterial()
+            material.diffuse.contents = UIImage(named: "art.scnassets/Bunny.png")
+            bunnyGeometry.materials = [material]
+        } else {
+            bunnyNode!.geometry?.firstMaterial?.diffuse.contents = UIImage(named: "art.scnassets/Bunny.png")
+        }
+
         bunnyNode!.enumerateChildNodes { (node, _) in
             node.castsShadow = false
         }
-        
-        
+
         let shape = SCNPhysicsShape(node: bunnyNode!, options: [SCNPhysicsShape.Option.type: SCNPhysicsShape.ShapeType.boundingBox])
         let physicsBody = SCNPhysicsBody(type: .dynamic, shape: shape)
         physicsBody.isAffectedByGravity = false
         physicsBody.categoryBitMask = 1
         physicsBody.contactTestBitMask = 2 | 4
         bunnyNode!.physicsBody = physicsBody
-        
+
         rootNode.addChildNode(bunnyNode!)
         print("Bunny set up")
     }
-    
     func setupCollisions() {
        
         CarrotNode.bitMask = 2
