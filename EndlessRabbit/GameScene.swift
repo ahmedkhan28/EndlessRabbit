@@ -1,14 +1,13 @@
-// GameScene.swift
 
 import SceneKit
 import QuartzCore
 
-class GameScene: SCNScene {
+class GameScene: SCNScene, SCNPhysicsContactDelegate {
     
     var cameraNode: SCNNode!
     var groundNode: SCNNode!
     var objectNode: SCNNode?
-    var runningGirlNode: SCNNode?
+    var bunnyNode: SCNNode?
     var lanes: [Float] = [-2, 0, 2] // Three lanes
     var currentLaneIndex = 1 // Initial lane index
     
@@ -19,7 +18,8 @@ class GameScene: SCNScene {
         setupCamera()
         setupLight()
         setupGround()
-        setupRunningGirl()
+        setupBunny()
+        setupCollisions()
         
         print("GameScene initialized")
     }
@@ -55,68 +55,103 @@ class GameScene: SCNScene {
     }
     
     func setupGround() {
-          groundNode = SCNNode()
-          let groundGeometry = SCNFloor()
-          groundGeometry.firstMaterial?.diffuse.contents = UIImage(named: "art.scnassets/grass.png")
-          groundNode.geometry = groundGeometry
-          
-          // Add physics body to the ground
-          let groundShape = SCNPhysicsShape(geometry: groundGeometry, options: nil)
-          let groundBody = SCNPhysicsBody(type: .static, shape: groundShape)
-          groundNode.physicsBody = groundBody
-          
-          rootNode.addChildNode(groundNode)
-          print("Ground set up")
-      }
+        groundNode = SCNNode()
+        let groundGeometry = SCNFloor()
+        groundGeometry.firstMaterial?.diffuse.contents = UIImage(named: "art.scnassets/grass.png")
+       
+        // Set reflectivity to zero
+        groundGeometry.reflectivity = 0.0
+        
+        groundNode.geometry = groundGeometry
+        groundNode.position = SCNVector3(x: 0, y: -0.1, z: 0)
+        
+        // Add physics body to the ground
+        let groundShape = SCNPhysicsShape(geometry: groundGeometry, options: nil)
+        let groundBody = SCNPhysicsBody(type: .static, shape: groundShape)
+        groundNode.physicsBody = groundBody
+        
+        rootNode.addChildNode(groundNode)
+        print("Ground set up")
+    }
     
-    func setupRunningGirl() {
-        guard let girlScene = SCNScene(named: "art.scnassets/running.scn") else {
-            print("Failed to load running.scn")
+    func setupBunny() {
+        guard let bunnyScene = SCNScene(named: "art.scnassets/rabbit.scn") else {
+            print("Failed to load rabbit.scn")
             return
         }
         
-        runningGirlNode = girlScene.rootNode.childNodes.first!.clone()
-        runningGirlNode!.position = SCNVector3(x: lanes[currentLaneIndex], y: 0, z: 0)
+        bunnyNode = bunnyScene.rootNode.childNodes.first!.clone()
+        bunnyNode!.position = SCNVector3(x: lanes[currentLaneIndex], y: 0, z: 0)
         
         // Remove shadow
-        runningGirlNode!.enumerateChildNodes { (node, _) in
+        bunnyNode!.enumerateChildNodes { (node, _) in
             node.castsShadow = false
         }
         
-        // Add physics body to the running girl
-        let shape = SCNPhysicsShape(node: runningGirlNode!, options: [SCNPhysicsShape.Option.type: SCNPhysicsShape.ShapeType.boundingBox])
+        // Add physics body to the bunny
+        let shape = SCNPhysicsShape(node: bunnyNode!, options: [SCNPhysicsShape.Option.type: SCNPhysicsShape.ShapeType.boundingBox])
         let physicsBody = SCNPhysicsBody(type: .dynamic, shape: shape)
         physicsBody.isAffectedByGravity = false
         physicsBody.categoryBitMask = 1
-        runningGirlNode!.physicsBody = physicsBody
+        physicsBody.contactTestBitMask = 2 | 4 // Detect collisions with carrots (2) and trees (4)
+        bunnyNode!.physicsBody = physicsBody
         
-        // Add running animation
-        if let animation = girlScene.rootNode.animationKeys.first {
-            let animation = girlScene.rootNode.animation(forKey: animation)!
-            runningGirlNode!.addAnimation(animation, forKey: "running")
-        }
+        rootNode.addChildNode(bunnyNode!)
+        print("Bunny set up")
+    }
+    
+    func setupCollisions() {
+        // Set up collision bit masks
+        CarrotNode.bitMask = 2
+        TreeNode.bitMask = 4
         
-        rootNode.addChildNode(runningGirlNode!)
-        print("Running girl set up")
+        // Set physics contact delegate
+        physicsWorld.contactDelegate = self
     }
     
-    func handleSwipeLeft() {
-        if currentLaneIndex > 0 {
-            currentLaneIndex -= 1
-            moveRunningGirlToLane(index: currentLaneIndex)
+    func physicsWorld(_ world: SCNPhysicsWorld, didBegin contact: SCNPhysicsContact) {
+        let nodeA = contact.nodeA
+        let nodeB = contact.nodeB
+        
+        if nodeA.physicsBody?.categoryBitMask == CarrotNode.bitMask || nodeB.physicsBody?.categoryBitMask == CarrotNode.bitMask {
+            // Bunny collided with a carrot
+            let carrotNode = (nodeA.physicsBody?.categoryBitMask == CarrotNode.bitMask) ? nodeA : nodeB
+            carrotNode.removeFromParentNode()
+            playChimpupSound()
+        } else if nodeA.physicsBody?.categoryBitMask == TreeNode.bitMask || nodeB.physicsBody?.categoryBitMask == TreeNode.bitMask {
+            // Bunny collided with a tree
+            gameOver()
         }
     }
     
-    func handleSwipeRight() {
-        if currentLaneIndex < lanes.count - 1 {
-            currentLaneIndex += 1
-            moveRunningGirlToLane(index: currentLaneIndex)
+    func playChimpupSound() {
+        guard let chimpupSound = SCNAudioSource(fileNamed: "art.scnassets/chimeup.mp3") else {
+            print("Failed to load chimeup.mp3")
+            return
         }
+        chimpupSound.load()
+        chimpupSound.volume = 1.0
+        chimpupSound.isPositional = false
+        let chimpupAction = SCNAction.playAudio(chimpupSound, waitForCompletion: false)
+        rootNode.runAction(chimpupAction)
     }
     
-    func moveRunningGirlToLane(index: Int) {
-        let action = SCNAction.moveBy(x: CGFloat(lanes[index] - runningGirlNode!.position.x), y: 0, z: 0, duration: 0.2)
-        runningGirlNode!.runAction(action)
+    func gameOver() {
+        // Stop camera movement
+        cameraNode.removeAllActions()
+        
+        // Make the bunny fall
+        let fallAction = SCNAction.moveBy(x: 0, y: -5, z: 0, duration: 1.0)
+        let removeAction = SCNAction.removeFromParentNode()
+        let sequence = SCNAction.sequence([fallAction, removeAction])
+        bunnyNode?.runAction(sequence)
+        
+        // Ensure ground texture and background are not reset
+        // TODO: Display game over screen or perform any other game over logic
+        print("Game Over")
+        
+        // Reapply the grass texture to ensure it remains
+        groundNode.geometry?.firstMaterial?.diffuse.contents = UIImage(named: "art.scnassets/grass.png")
     }
     
     func spawnObject() {
@@ -152,14 +187,36 @@ class GameScene: SCNScene {
         } else {
             spawnObject()
         }
+        
+        // Keep the bunny in the scene by moving it along with the camera
+        bunnyNode?.position.z = cameraNode.position.z - 9
     }
     
     func moveCamera() {
-        let moveCamera = SCNAction.moveBy(x: 0, y: 0, z: -5, duration: 0.5)
+        let moveCamera = SCNAction.moveBy(x: 0, y: 0, z: -3, duration: 0.3)
         let updateAction = SCNAction.run { _ in self.updateScene() }
         let sequence = SCNAction.sequence([moveCamera, updateAction])
         let repeatAction = SCNAction.repeatForever(sequence)
         cameraNode.runAction(repeatAction)
         print("Camera movement started")
+    }
+    
+    func handleSwipeLeft() {
+        if currentLaneIndex > 0 {
+            currentLaneIndex -= 1
+            moveRunningBunnyToLane(index: currentLaneIndex)
+        }
+    }
+    
+    func handleSwipeRight() {
+        if currentLaneIndex < lanes.count - 1 {
+            currentLaneIndex += 1
+            moveRunningBunnyToLane(index: currentLaneIndex)
+        }
+    }
+    
+    func moveRunningBunnyToLane(index: Int) {
+        let action = SCNAction.moveBy(x: CGFloat(lanes[index] - bunnyNode!.position.x), y: 0, z: 0, duration: 0.2)
+        bunnyNode!.runAction(action)
     }
 }

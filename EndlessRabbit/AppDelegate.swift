@@ -24,32 +24,44 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Make the window visible
         window?.makeKeyAndVisible()
         
-        // Hide the status bar
-        UIApplication.shared.isStatusBarHidden = true
-        
         return true
     }
     
-    func applicationWillResignActive(_ application: UIApplication) {
-        // Sent when the application is about to move from active to inactive state.
-        // This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message)
-        // or when the user quits the application and it begins the transition to the background state.
-        // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks.
-    }
+    // MARK: - UISceneSession Lifecycle
     
-    func applicationDidEnterBackground(_ application: UIApplication) {
-        // Use this method to release shared resources, save user data, invalidate timers,
-        // and store enough application state information to restore your application to its current state
-        // in case it is terminated later.
+    func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {
+        // Create a new scene configuration
+        let sceneConfiguration = UISceneConfiguration(name: "Default Configuration", sessionRole: connectingSceneSession.role)
+        
+        // Specify the scene class to use for the session
+        sceneConfiguration.sceneClass = UIWindowScene.self
+        
+        // Specify the delegate class to use for the scene
+        sceneConfiguration.delegateClass = SceneDelegate.self
+        
+        return sceneConfiguration
     }
+}
+
+class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
-    func applicationWillEnterForeground(_ application: UIApplication) {
-        // Called as part of the transition from the background to the active state.
-        // Here you can undo many of the changes made on entering the background.
-    }
+    var window: UIWindow?
     
-    func applicationDidBecomeActive(_ application: UIApplication) {
-        // Restart any tasks that were paused (or not yet started) while the application was inactive.
-        // If the application was previously in the background, optionally refresh the user interface.
+    func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
+        // Use this method to configure your scene
+        guard let windowScene = (scene as? UIWindowScene) else { return }
+        
+        // Create the main window
+        window = UIWindow(windowScene: windowScene)
+        
+        // Set the root view controller
+        let rootView = ContentView()
+        let hostingController = UIHostingController(rootView: rootView)
+        window?.rootViewController = hostingController
+        
+        // Make the window visible
+        window?.makeKeyAndVisible()
+        
+
     }
 }
